@@ -1,0 +1,16 @@
+#label_1{
+	color: black;
+	font-size: 40px;
+}
+
+.body_background{
+	background-image: url("bg1.jpg");
+	background-position: center;
+	background-size: cover;
+}
+
+#my_canvas{
+	border: width 200px; 
+	background-color: rgb(255, 255, 255);
+    border-style: ridge;
+}
