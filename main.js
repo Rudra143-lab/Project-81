@@ -1,47 +1,63 @@
-var input_array=[];
-var input_array2=[];
-function radhe()
-{
-    for(i=1;i<=8;i++)
-    {
-    var array1=document.getElementById("input_"+i).value;
-    console.log(array1);
-    input_array.push(array1);
-    }
-    
-    console.log(input_array);
-    Length_array=input_array.length;
-    var display_array=[];
-    for(j=0;j<Length_array;j++)
-    {
 
-    display_array.push(input_array[j]);
-    console.log(display_array);
+var last_position_of_x, last_position_of_y;
+
+    canvas = document.getElementById('myCanvas');
+    ctx = canvas.getContext("2d");
+    
+    color = "black";
+    width_of_line = 2;
+    width=screen.width;
+    height=screen.height;
+    
+    new_width=screen.width-70;
+    new_height=screen.height-300;
+
+    if(width<992)
+    {
+     document.getElementById("myCanvas").width=new_width;
+     document.getElementById("myCanvas").height=new_height;
+     document.body.style.overflow="hidden";
     }
-    remove_comma=display_array.join(".");
-    console.log(remove_comma);
-    document.getElementById("display_paragraph_1").innerHTML=remove_comma;
+
+    canvas.addEventListener("touchstart", my_touchstart);
+    
+    function my_touchstart(e)
+    {
+        //Addictonal Activity start
+        color = document.getElementById("color").value;
+        width_of_line = document.getElementById("width_of_line").value;
+        //Addictonal Activity ends
+
+        last_position_of_x=e.touches[0].clientX-canvas.offsetLeft;
+        last_position_of_y=e.touches[0].clientY-canvas.offsetTop;
+
+    }
+
    
-}
-    
 
-
-function get_paragraf_2()
-{
-    for(i=1;i<=8;i++)
+    canvas.addEventListener("touchmove", my_touchmove);
+    function my_touchmove(e)
     {
-    var array2=document.getElementById("input_"+i+"_paragraf_2").value;
-    console.log(array2);
-    input_array2.push(array2);
+
+         current_position_of_mouse_x = e.touches[0].clientX - canvas.offsetLeft;
+         current_position_of_mouse_y = e.touches[0].clientY - canvas.offsetTop;
+
+        
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+
+        console.log("Last position of x and y coordinates = ");
+        console.log("x = " + last_position_of_x + "y = " + last_position_of_y);
+        ctx.moveTo(last_position_of_x, last_position_of_y);
+
+        console.log("Current position of x and y coordinates = ");
+        console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
+        ctx.lineTo(current_position_of_mouse_x, current_position_of_mouse_y);
+        ctx.stroke();
+        
+
+        last_position_of_x = current_position_of_mouse_x; 
+        last_position_of_y = current_position_of_mouse_y;
     }
-    console.log(input_array2);
-    var Length_array1=input_array2.length;
-    display_array2=[];
-    for(var k=0;k<Length_array1;k++){
-        display_array2.push(input_array2[k]);
-        console.log(display_array2);
-    }
-    remove_comma=display_array2.join(".");
-    console.log(remove_comma);
-    document.getElementById("display_paragraph_2").innerHTML=remove_comma;
-}  
+
